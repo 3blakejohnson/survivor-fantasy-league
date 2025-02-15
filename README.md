@@ -1,1 +1,1 @@
-# survivor-fantasy-league
+# Survivor Fantasy League App
