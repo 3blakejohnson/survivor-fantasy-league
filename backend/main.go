@@ -5,9 +5,9 @@ import (
 	"log"
 	"os"
 
+	"github.com/3blakejohnson/survivor-fantasy-league/backend/controllers"
 	"github.com/3blakejohnson/survivor-fantasy-league/backend/dao"
 	"github.com/3blakejohnson/survivor-fantasy-league/backend/db"
-	"github.com/3blakejohnson/survivor-fantasy-league/backend/models"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
@@ -45,19 +45,21 @@ func main() {
 	db.ConnectDB()
 	defer db.CloseDB()
 
-	// Example: add user to db
-	fmt.Println("Starting user creation")
-	userDAO := dao.NewUserDAO(db.DB)
-	newUser := models.User{
-		Username:     "3blakejohnson",
-		PasswordHash: "password",
-		FirstName:    "Blake",
-		LastName:     "Johnson",
-	}
-	err = userDAO.Create(newUser)
-	if err != nil {
-		log.Fatal("Error creating user")
-	}
+	dm := dao.NewDAOManager(db.DB)
+
+	// // Example: add user to db
+	// fmt.Println("Starting user creation")
+	// userDAO := dao.NewUserDAO(db.DB)
+	// newUser := models.User{
+	// 	Username:     "3blakejohnson",
+	// 	PasswordHash: "password",
+	// 	FirstName:    "Blake",
+	// 	LastName:     "Johnson",
+	// }
+	// err = userDAO.Create(newUser)
+	// if err != nil {
+	// 	log.Fatal("Error creating user")
+	// }
 
 	// Initialize Supabase
 	supabaseURL := os.Getenv("SUPABASE_URL")
@@ -75,6 +77,7 @@ func main() {
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Survivor Fantasy League API is running!")
 	})
+	app.Get("/user/:id", controllers.GetUser(dm))
 
 	// Start the server
 	port := os.Getenv("PORT")
