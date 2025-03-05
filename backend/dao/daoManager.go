@@ -4,11 +4,13 @@ import "database/sql"
 
 type DAOManager interface {
 	User() UserDAO
+	Episode() EpisodeDAO
 }
 
 type daoManager struct {
-	UserDAO UserDAO
-	db      *sql.DB
+	UserDAO    UserDAO
+	EpisodeDAO EpisodeDAO
+	db         *sql.DB
 }
 
 func NewDAOManager(database *sql.DB) DAOManager {
@@ -20,4 +22,11 @@ func (m *daoManager) User() UserDAO {
 		m.UserDAO = NewUserDAO(m.db)
 	}
 	return m.UserDAO
+}
+
+func (m *daoManager) Episode() EpisodeDAO {
+	if m.EpisodeDAO == nil {
+		m.EpisodeDAO = NewEpisodeDAO(m.db)
+	}
+	return m.EpisodeDAO
 }

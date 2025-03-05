@@ -78,6 +78,8 @@ func main() {
 		return c.SendString("Survivor Fantasy League API is running!")
 	})
 	app.Get("/user/:id", controllers.GetUser(dm))
+	app.Get("/episode/:season/:episode", controllers.GetEpisode(dm))
+	app.Post("/episode", controllers.CreateEpisode(dm))
 
 	// Start the server
 	port := os.Getenv("PORT")
