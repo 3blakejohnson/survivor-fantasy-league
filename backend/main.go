@@ -8,11 +8,13 @@ import (
 	"github.com/3blakejohnson/survivor-fantasy-league/backend/controllers"
 	"github.com/3blakejohnson/survivor-fantasy-league/backend/dao"
 	"github.com/3blakejohnson/survivor-fantasy-league/backend/db"
+	"github.com/3blakejohnson/survivor-fantasy-league/backend/templates"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	supa "github.com/nedpals/supabase-go"
+	//"github.com/a-h/templ"
 )
 
 func main() {
@@ -45,7 +47,12 @@ func main() {
 
 	// Serve HTML Homepage
 	app.Get("/", func(c *fiber.Ctx) error {
+		c.Set("Content-Type", "text/html")
 		return templates.HomePage().Render(c.Context(), c.Response().BodyWriter()) // Render Templ component
+	})
+
+	app.Get("/about", func(c *fiber.Ctx) error {
+		return c.SendString("<p>This is a Survivor Fantasy League where you compete by picking players!</p>")
 	})
 
 	app.Get("/user/:id", controllers.GetUser(dm))

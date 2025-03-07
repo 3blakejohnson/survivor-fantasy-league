@@ -3,6 +3,7 @@ module github.com/3blakejohnson/survivor-fantasy-league/backend
 go 1.24.0
 
 require (
+	github.com/a-h/templ v0.3.833
 	github.com/gofiber/fiber/v2 v2.52.6
 	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.10.9
