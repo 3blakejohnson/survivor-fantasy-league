@@ -14,27 +14,6 @@ import (
 	supa "github.com/nedpals/supabase-go"
 )
 
-// func dbConnect() {
-// 	// Get connection string from environment variable
-// 	connStr := os.Getenv("DATABASE_URL")
-// 	if connStr == "" {
-// 		log.Fatal("DATABASE_URL is not set in .env file")
-// 	}
-
-// 	db, err := sql.Open("postgres", connStr)
-// 	if err != nil {
-// 		panic("Couldn't establish connection to Database")
-// 	}
-// 	defer db.Close()
-
-// 	err = db.Ping()
-// 	if err != nil {
-// 		panic("Ping to database failed")
-// 	} else {
-// 		fmt.Println("Succesfully Established connection to database!")
-// 	}
-// }
-
 func main() {
 	// Load environment variables
 	err := godotenv.Load()
@@ -46,20 +25,6 @@ func main() {
 	defer db.CloseDB()
 
 	dm := dao.NewDAOManager(db.DB)
-
-	// // Example: add user to db
-	// fmt.Println("Starting user creation")
-	// userDAO := dao.NewUserDAO(db.DB)
-	// newUser := models.User{
-	// 	Username:     "3blakejohnson",
-	// 	PasswordHash: "password",
-	// 	FirstName:    "Blake",
-	// 	LastName:     "Johnson",
-	// }
-	// err = userDAO.Create(newUser)
-	// if err != nil {
-	// 	log.Fatal("Error creating user")
-	// }
 
 	// Initialize Supabase
 	supabaseURL := os.Getenv("SUPABASE_URL")
