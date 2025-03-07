@@ -9,6 +9,7 @@ import (
 	"github.com/3blakejohnson/survivor-fantasy-league/backend/dao"
 	"github.com/3blakejohnson/survivor-fantasy-league/backend/db"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	supa "github.com/nedpals/supabase-go"
@@ -37,11 +38,16 @@ func main() {
 
 	// Create a new Fiber instance
 	app := fiber.New()
+	app.Use(logger.New())
 
-	// Health check route
+	// Serve static files (CSS, images, etc.)
+	app.Static("/static", "./static")
+
+	// Serve HTML Homepage
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Survivor Fantasy League API is running!")
+		return templates.HomePage().Render(c.Context(), c.Response().BodyWriter()) // Render Templ component
 	})
+
 	app.Get("/user/:id", controllers.GetUser(dm))
 	app.Get("/episode/:season/:episode", controllers.GetEpisode(dm))
 	app.Post("/episode", controllers.CreateEpisode(dm))
