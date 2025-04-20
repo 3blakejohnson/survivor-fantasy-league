@@ -1,7 +1,5 @@
 package templates
 
-import "github.com/a-h/templ"
-
 templ HomePage() {
 	<html>
 		<head>
@@ -18,12 +16,32 @@ templ HomePage() {
 			<main>
 				<p>Welcome to the Survivor Fantasy League! Choose your players, track stats, and see how you rank.</p>
 
+        <div
+          class="flex"
+          style="margin: 2;"
+        >
+          <button>
+            Create a League
+          </button>
+          <button>
+            Join a League
+          </button>
+        </div>
+
 				<!-- HTMX Example: Click to Load Content -->
 				<button hx-get="/about" hx-target="#content" hx-swap="innerHTML">
 					Load About Info
 				</button>
 
 				<div id="content"></div>
+
+        <div
+          id="leagues"
+          hx-get=""
+          hx-swap="outerHTML"
+        >
+          You're not a part of any leagues yet. Join or Start one!
+        </div>
 			</main>
 		</body>
 	</html>

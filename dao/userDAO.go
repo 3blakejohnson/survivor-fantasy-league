@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"log"
 
-	"github.com/3blakejohnson/survivor-fantasy-league/backend/models"
+	"github.com/3blakejohnson/survivor-fantasy-league/models"
 )
 
 type UserDAO interface {

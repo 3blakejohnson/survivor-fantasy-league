@@ -1,4 +1,4 @@
-module github.com/3blakejohnson/survivor-fantasy-league/backend
+module github.com/3blakejohnson/survivor-fantasy-league
 
 go 1.24.0
 

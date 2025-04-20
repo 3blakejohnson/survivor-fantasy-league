@@ -5,8 +5,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/3blakejohnson/survivor-fantasy-league/backend/dao"
-	"github.com/3blakejohnson/survivor-fantasy-league/backend/models"
+	"github.com/3blakejohnson/survivor-fantasy-league/dao"
+	"github.com/3blakejohnson/survivor-fantasy-league/models"
 	"github.com/gofiber/fiber/v2"
 )
 

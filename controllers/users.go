@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/3blakejohnson/survivor-fantasy-league/backend/dao"
+	"github.com/3blakejohnson/survivor-fantasy-league/dao"
 	"github.com/gofiber/fiber/v2"
 )
 
