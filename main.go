@@ -51,6 +51,11 @@ func main() {
 		return templates.HomePage().Render(c.Context(), c.Response().BodyWriter()) // Render Templ component
 	})
 
+	app.Get("/login", func(c *fiber.Ctx) error {
+		c.Set("Content-Type", "text/html")
+		return templates.LoginPage().Render(c.Context(), c.Response().BodyWriter())
+	})
+
 	app.Get("/about", func(c *fiber.Ctx) error {
 		return c.SendString("<p>This is a Survivor Fantasy League where you compete by picking players!</p>")
 	})

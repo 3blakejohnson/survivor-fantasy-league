@@ -8,7 +8,7 @@ package templates
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func HomePage() templ.Component {
+func LoginPage() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -29,7 +29,7 @@ func HomePage() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<html><head><title>Survivor Fantasy League</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><script src=\"https://unpkg.com/htmx.org@1.9.6\"></script><link rel=\"stylesheet\" href=\"/static/style.css\"></head><body><header><h1>Survivor Fantasy League</h1></header><main><p>Welcome to the Survivor Fantasy League! Choose your players, track stats, and see how you rank.</p><div class=\"flex\" style=\"margin: 2;\"><button>Create a League</button> <button>Join a League</button></div><!-- HTMX Example: Click to Load Content --><button hx-get=\"/about\" hx-target=\"#content\" hx-swap=\"innerHTML\">Load About Info</button><div id=\"content\"></div><div id=\"leagues\" hx-get=\"\" hx-swap=\"outerHTML\">You're not a part of any leagues yet. Join or Start one!</div></main></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<html><head><title>Login | Survivor Fantasy League</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"stylesheet\" href=\"/static/style.css\"></head><body><header><h1>Survivor Fantasy League</h1></header><main class=\"auth-page\"><section class=\"auth-card\"><h2>Log in</h2><p class=\"muted\">Sign in to manage your leagues and set your roster.</p><form class=\"auth-form\"><label for=\"email\">Email</label> <input id=\"email\" name=\"email\" type=\"email\" placeholder=\"you@example.com\" autocomplete=\"off\" required> <label for=\"password\">Password</label> <input id=\"password\" name=\"password\" type=\"password\" placeholder=\"Enter your password\" autocomplete=\"off\" required><div class=\"checkbox-row\"><input id=\"remember\" name=\"remember\" type=\"checkbox\"> <label for=\"remember\">Remember me</label></div><button type=\"submit\">Continue</button></form><p class=\"form-footer\">Need an account? <a href=\"#\">Create one</a></p></section></main></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
