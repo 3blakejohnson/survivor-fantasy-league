@@ -1,0 +1,88 @@
+package templates
+
+// AppLayout wraps page content in a reusable shell so HTMX requests can swap only the main area.
+type ShellLink struct {
+	Label   string
+	Href    string
+	HxGet   string
+	PushURL bool
+}
+
+templ AppLayout(title string, links []ShellLink, content templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<title>
+				{{
+					if title != "" {
+						title = title + " | Survivor Fantasy League"
+					} else {
+						title = "Survivor Fantasy League"
+					}
+				}}
+				{ title }
+			</title>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			<script src="https://unpkg.com/htmx.org@1.9.6" defer></script>
+			<link rel="stylesheet" href="/static/style.css">
+		</head>
+		<body class="app-shell">
+			<header class="app-header">
+				<div class="brand">
+					<a
+						class="brand-link"
+						href="/"
+						hx-get="/"
+						hx-target="#app-main"
+						hx-swap="innerHTML"
+						hx-push-url="true"
+					>
+						Survivor Fantasy League
+					</a>
+					<p class="tagline">Draft castaways, track points, and keep your league synchronized.</p>
+				</div>
+
+				if len(links) > 0 {
+					<nav class="app-nav">
+						for _, link := range links {
+							{{
+								href := link.Href
+								if href == "" {
+									href = link.HxGet
+								}
+
+								hxGet := link.HxGet
+								if hxGet == "" {
+									hxGet = link.Href
+								}
+							}}
+
+							<a
+								href={ templ.URL(href) }
+								if hxGet != "" {
+									hx-get= {hxGet}
+									hx-target="#app-main"
+									hx-swap="innerHTML"
+								}
+								if link.PushURL {
+									hx-push-url="true"
+								}
+							>
+								{ link.Label }
+							</a>
+						}
+					</nav>
+				}
+			</header>
+
+			<main id="app-main" class="app-main" hx-target="this">
+				@content
+			</main>
+
+			<footer class="app-footer">
+				<small>Survivor Fantasy League</small>
+			</footer>
+		</body>
+	</html>
+}

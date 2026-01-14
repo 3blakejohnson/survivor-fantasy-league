@@ -29,7 +29,7 @@ func HomePage() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<html><head><title>Survivor Fantasy League</title><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><script src=\"https://unpkg.com/htmx.org@1.9.6\"></script><link rel=\"stylesheet\" href=\"/static/style.css\"></head><body><header><h1>Survivor Fantasy League</h1></header><main><p>Welcome to the Survivor Fantasy League! Choose your players, track stats, and see how you rank.</p><div class=\"flex\" style=\"margin: 2;\"><button>Create a League</button> <button>Join a League</button></div><!-- HTMX Example: Click to Load Content --><button hx-get=\"/about\" hx-target=\"#content\" hx-swap=\"innerHTML\">Load About Info</button><div id=\"content\"></div><div id=\"leagues\" hx-get=\"\" hx-swap=\"outerHTML\">You're not a part of any leagues yet. Join or Start one!</div></main></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<p>Welcome to the Survivor Fantasy League! Choose your players, track stats, and see how you rank.</p><div class=\"flex\" style=\"margin: 2;\"><button>Create a League</button> <button>Join a League</button></div><!-- HTMX Example: Click to Load Content --><button hx-get=\"/about\" hx-target=\"#content\" hx-swap=\"innerHTML\">Load About Info</button><div id=\"content\"></div><div id=\"leagues\" hx-get=\"\" hx-swap=\"outerHTML\">You're not a part of any leagues yet. Join or Start one!</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

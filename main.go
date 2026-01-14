@@ -50,6 +50,7 @@ func main() {
 		c.Set("Content-Type", "text/html")
 		return templates.HomePage().Render(c.Context(), c.Response().BodyWriter()) // Render Templ component
 	})
+	app.Get("/app/:page", controllers.GetAppPage())
 
 	app.Get("/login", func(c *fiber.Ctx) error {
 		c.Set("Content-Type", "text/html")

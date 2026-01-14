@@ -1,0 +1,33 @@
+package templates
+
+import (
+	"strings"
+)
+
+func shellTitle(page string) string {
+	if page == "" {
+		return "Home"
+	}
+
+	return strings.ToUpper(page)
+}
+
+func defaultShellLinks() []ShellLink {
+	return []ShellLink{
+		{Label: "Home", HxGet: "/app/home", PushURL: true},
+		{Label: "Login", HxGet: "/app/login", PushURL: true},
+		{Label: "Leagues", HxGet: "/app/leagues", PushURL: true},
+	}
+}
+
+templ MissingPage(page string) {
+	<section class="app-page">
+		<h2>{ shellTitle(page) }</h2>
+
+		<p class="muted">This route is wired, but content is not attached yet.</p>
+	</section>
+}
+
+templ AppPage(title string, content templ.Component) {
+	@AppLayout(title, defaultShellLinks(), content)
+}
