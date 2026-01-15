@@ -8,13 +8,14 @@ import (
 	"github.com/3blakejohnson/survivor-fantasy-league/controllers"
 	"github.com/3blakejohnson/survivor-fantasy-league/dao"
 	"github.com/3blakejohnson/survivor-fantasy-league/db"
+	"github.com/3blakejohnson/survivor-fantasy-league/middleware"
+	"github.com/3blakejohnson/survivor-fantasy-league/services"
 	"github.com/3blakejohnson/survivor-fantasy-league/templates"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	supa "github.com/nedpals/supabase-go"
-	//"github.com/a-h/templ"
 )
 
 func main() {
@@ -28,6 +29,9 @@ func main() {
 	defer db.CloseDB()
 
 	dm := dao.NewDAOManager(db.DB)
+
+	// Services
+	authService := services.NewAuthService("SECRET_KEY")
 
 	// Initialize Supabase
 	supabaseURL := os.Getenv("SUPABASE_URL")
@@ -45,17 +49,19 @@ func main() {
 	// Serve static files (CSS, images, etc.)
 	app.Static("/static", "./static")
 
+	app.Get("/login", func(c *fiber.Ctx) error {
+		c.Set("Content-Type", "text/html")
+		return templates.LoginPage().Render(c.Context(), c.Response().BodyWriter())
+	})
+
+	// Auth Endpoints
+	app.Use(middleware.Auth(authService))
 	// Serve HTML Homepage
 	app.Get("/", func(c *fiber.Ctx) error {
 		c.Set("Content-Type", "text/html")
 		return templates.HomePage().Render(c.Context(), c.Response().BodyWriter()) // Render Templ component
 	})
 	app.Get("/app/:page", controllers.GetAppPage())
-
-	app.Get("/login", func(c *fiber.Ctx) error {
-		c.Set("Content-Type", "text/html")
-		return templates.LoginPage().Render(c.Context(), c.Response().BodyWriter())
-	})
 
 	app.Get("/about", func(c *fiber.Ctx) error {
 		return c.SendString("<p>This is a Survivor Fantasy League where you compete by picking players!</p>")

@@ -5,6 +5,7 @@ go 1.24.0
 require (
 	github.com/a-h/templ v0.3.977
 	github.com/gofiber/fiber/v2 v2.52.6
+	github.com/golang-jwt/jwt/v5 v5.3.0
 	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.10.9
 	github.com/nedpals/supabase-go v0.5.0
