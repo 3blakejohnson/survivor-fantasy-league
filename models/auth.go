@@ -20,3 +20,4 @@ const (
 
 var ErrJWTExpired error = errors.New("jwt expired")
 var ErrJWTInvalid error = errors.New("invalid jwt")
+var ErrInvalidCredentials error = errors.New("invalid credentials")

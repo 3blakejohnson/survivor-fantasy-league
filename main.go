@@ -31,7 +31,7 @@ func main() {
 	dm := dao.NewDAOManager(db.DB)
 
 	// Services
-	authService := services.NewAuthService("SECRET_KEY")
+	authService := services.NewAuthService("SECRET_KEY", dm)
 
 	// Initialize Supabase
 	supabaseURL := os.Getenv("SUPABASE_URL")
@@ -45,6 +45,11 @@ func main() {
 	// Create a new Fiber instance
 	app := fiber.New()
 	app.Use(logger.New())
+	appLogger := log.New(os.Stdout, "sfl ", log.LstdFlags|log.LUTC|log.Lshortfile)
+	app.Use(func(c *fiber.Ctx) error {
+		c.Locals("logger", appLogger)
+		return c.Next()
+	})
 
 	// Serve static files (CSS, images, etc.)
 	app.Static("/static", "./static")
@@ -53,6 +58,8 @@ func main() {
 		c.Set("Content-Type", "text/html")
 		return templates.LoginPage().Render(c.Context(), c.Response().BodyWriter())
 	})
+	app.Post("/login", controllers.Login(authService))
+	app.Post("/new-user", controllers.CreateUser(authService))
 
 	// Auth Endpoints
 	app.Use(middleware.Auth(authService))
